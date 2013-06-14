@@ -1,0 +1,87 @@
+* ulforceプロジェクト
+** ulforceプロジェクトとは
+デジモンのアルフォースブイドラモンから拝借．
+究極の力「Ultimate Force」を縮めた造語
+
+自身の生活を便利にするためのツール
+すべての集約するためのもの
+** 環境
+|       | Version |
+|-------+---------|
+| Ruby  |   2.0.0 |
+| Rails |         |
+
+
+
+** やりたいこと
+*** TODO RTMとTogglの連携
+**** 目的
+RTMのToDoをタイムトラックしたい．
+
+**** TODO rtmのapi利用のための設定
+#+begin_src bash
+% milkman authorize API_KEY SHARED_SECRET
+#+end_src
+
+#+begin_src bash
+% milkman authorize 0174d04e6979f4444935cf8947102112 f167ab22fd427509
+Copy the URL below and follow the steps on Remember The Milk (RTM) to authorize Milkman:
+
+http://www.rememberthemilk.com/services/auth/?api_key=0174d04e6979f4444935cf8947102112&shared_secret=f167ab22fd427509&perms=delete&format=json&api_sig=3fdd44df84a576975e1ad22ef7e149ca
+
+Once you've authorized Milkman, you'll receive a hash called 'frob' from Remember The Milk. The page from Remember The Milk will list something like the following: 'No callback URL specified for this API key. Your frob value is YOUR_FROB'. Copy and paste that YOUR_FROB value below and press <enter>:
+
+#+end_src
+
+ブラウザに以下のURLを入力する．
+#+begin_src url
+http://www.rememberthemilk.com/services/auth/?api_key=0174d04e6979f4444935cf8947102112&shared_secret=f167ab22fd427509&perms=delete&format=json&api_sig=3fdd44df84a576975e1ad22ef7e149ca
+#+end_src
+
+「OK, I'll allow it」のボタンを押す．
+以下の表示
+#+begin_src text
+No callback URL specified for this API key. Your frob value is e86db17543dce04fb0b129f2fb031f2d91231f95
+#+end_src
+
+#+begin_src bash
+% milkman authorize 0174d04e6979f4444935cf8947102112 f167ab22fd427509
+Copy the URL below and follow the steps on Remember The Milk (RTM) to authorize Milkman:
+
+http://www.rememberthemilk.com/services/auth/?api_key=0174d04e6979f4444935cf8947102112&shared_secret=f167ab22fd427509&perms=delete&format=json&api_sig=3fdd44df84a576975e1ad22ef7e149ca
+
+Once you've authorized Milkman, you'll receive a hash called 'frob' from Remember The Milk. The page from Remember The Milk will list something like the following: 'No callback URL specified for this API key. Your frob value is YOUR_FROB'. Copy and paste that YOUR_FROB value below and press <enter>:
+
+e86db17543dce04fb0b129f2fb031f2d91231f95
+
+ushisandayo, you've successfully authorized Milkman with Remember The Milk. As you can see we've received your username and an authorization token. Both this auth token, your API key and shared secret should be saved for later use. You can either save them in a YAML file and load them in your application, include them in the Ruby script where you're using this gem or set them as environment variables. That's completely up to you.
+
+Both the auth token, API key and shared secret are listed below. Save them using one of the methods above (or perhaps another solution) as you'll need all of them to use Milkman in your own project. Oh, and Remember... The Milk!
+
+	api_key:       0174d04e6979f4444935cf8947102112
+	shared_secret: f167ab22fd427509
+	auth_token:    9ef5886407fd54b83978181a6a4dc7f44ee6e1d0
+
+#+end_src
+
+rtm.yamlファイルを作成する．
+#+begin_src yml
+api_key:       0174d04e6979f4444935cf8947102112
+shared_secret: f167ab22fd427509
+auth_token:    9ef5886407fd54b83978181a6a4dc7f44ee6e1d0
+#+end_src
+**** TODO gemのインストール
+[[https://github.com/kevintuhumury/milkman][milkman]]
+
+#+begin_src bash
+gem install milkman
+% git clone git://github.com/kevintuhumury/milkman.git
+% cd milkman
+% gem build milkman.gemspec
+  Successfully built RubyGem
+  Name: milkman
+  Version: 0.0.1
+  File: milkman-0.0.1.gem
+% milkman-0.0.1.gem
+#+end_src
+**** TODO RTMのタスクリストを取ってきて，一覧表示する．
